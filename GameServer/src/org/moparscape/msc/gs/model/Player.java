@@ -651,15 +651,6 @@ public final class Player extends Mob {
 	}
 
 	public boolean canLogout() {
-		if (this != null && this.location != null
-				&& this.location.inWilderness()) {
-			if (GameEngine.getTime() - this.getLastMoved() < 10000) {
-				getActionSender()
-						.sendMessage(
-								"You must stand peacefully in one place for 10 seconds!");
-				return false;
-			}
-		}
 		return !isBusy() && GameEngine.getTime() - getCombatTimer() > 10000;
 	}
 
@@ -1633,24 +1624,6 @@ public final class Player extends Mob {
 			incCurStat(i, advanced);
 			incMaxStat(i, advanced);
 			int stat = this.getMaxStat(i);
-			if (stat == 99) {
-				for (Player p : world.getPlayers()) {
-					if (p != null) {
-						p.getActionSender()
-								.sendMessage(
-										"#adm##pmd#@gre@**********************************#pmd##adm#");
-						p.getActionSender()
-								.sendMessage(
-										"@yel@Congratulations "
-												+ this.getUsername()
-												+ " has just reached the maximum level (99)!! in "
-												+ Formulae.statArray[i]);
-						p.getActionSender()
-								.sendMessage(
-										"#adm##pmd#@gre@*********************************#pmd##adm#");
-					}
-				}
-			}
 			actionSender.sendStat(i);
 			actionSender.sendMessage("@gre@You just advanced " + advanced + " "
 					+ Formulae.statArray[i] + " level"
